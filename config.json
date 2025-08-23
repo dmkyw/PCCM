@@ -1,0 +1,55 @@
+{
+  "hospital": {
+    "name": "咸阳市第一人民医院",
+    "department": "呼吸科",
+    "logo": "hospital-logo.svg",
+    "miniprogram": "#小程序://咸阳市第一人民医院/3qvFwHHh6svxp5e"
+  },
+  "images": {
+    "doctor_patient_communication": "doctor-patient-communication",
+    "backup_doctor_patient": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "supported_formats": [".jpg", ".jpeg", ".png", ".webp", ".svg"],
+    "default_format": ".svg"
+  },
+  "contact": {
+    "hospital_name": "咸阳市第一人民医院",
+    "department": "呼吸与危重症病院",
+    "phone": "029-33248083",
+    "address": "咸阳市秦都区毕塬西路10号",
+    "website": "https://www.xyyy999.com/html/ksdh/lcks_hxwz/",
+    "miniprogram_link": "#小程序://咸阳市第一人民医院/3qvFwHHh6svxp5e"
+  },
+  "editor": {
+    "name": "亢锴医生",
+    "department": "呼吸与危重症病院",
+    "title": "科普编辑"
+  },
+  "qr_codes": {
+    "doctor_qr": "doctor-qr",
+    "backup_doctor_qr": "images/default-doctor-qr.svg"
+  },
+  "typography": {
+    "font_family": "Microsoft YaHei, Arial, sans-serif",
+    "font_size": "16px",
+    "line_height": "1.6",
+    "available_fonts": [
+      "汉仪方隶简",
+      "Microsoft YaHei",
+      "SimHei",
+      "SimSun",
+      "Arial",
+      "Helvetica",
+      "Georgia",
+      "Times New Roman"
+    ]
+  },
+  "theme": {
+    "primary_color": "#2E7D32",
+    "secondary_color": "#1B5E20",
+    "accent_color": "#4CAF50",
+    "font_family": "'HYFangLiJian', SimHei, sans-serif",
+    "font_size": "18px"
+  },
+  "version": "1.0.0",
+  "last_updated": "2024-08-23"
+}

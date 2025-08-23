@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- 外圆背景 -->
+  <circle cx="100" cy="100" r="95" fill="#1B5E20" stroke="#0D47A1" stroke-width="4"/>
+  
+  <!-- 内圆背景渐变 -->
+  <defs>
+    <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#2E7D32;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B5E20;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="lungGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#BBDEFB;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="100" cy="100" r="80" fill="url(#bgGradient)"/>
+  
+  <!-- 肺部轮廓 - 左肺 -->
+  <path d="M 75 65 Q 65 70 65 85 Q 65 100 70 115 Q 75 125 85 125 Q 90 120 90 110 L 90 75 Q 85 65 75 65 Z" 
+        fill="url(#lungGradient)" stroke="white" stroke-width="2" opacity="0.9"/>
+  
+  <!-- 肺部轮廓 - 右肺 -->
+  <path d="M 125 65 Q 135 70 135 85 Q 135 100 130 115 Q 125 125 115 125 Q 110 120 110 110 L 110 75 Q 115 65 125 65 Z" 
+        fill="url(#lungGradient)" stroke="white" stroke-width="2" opacity="0.9"/>
+  
+  <!-- 气管 -->
+  <rect x="97" y="50" width="6" height="25" fill="white" rx="3" opacity="0.9"/>
+  
+  <!-- 支气管 -->
+  <path d="M 100 75 L 85 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 100 75 L 115 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  
+  <!-- 医院十字标志 -->
+  <rect x="92" y="135" width="16" height="45" fill="white" rx="2"/>
+  <rect x="75" y="152" width="50" height="16" fill="white" rx="2"/>
+  
+  <!-- 医院名称弧形文字路径 -->
+  <defs>
+    <path id="topArc" d="M 35,100 A 65,65 0 0,1 165,100" fill="none"/>
+    <path id="bottomArc" d="M 165,100 A 65,65 0 0,1 35,100" fill="none"/>
+  </defs>
+  
+  <!-- 上方弧形文字 -->
+  <text font-family="汉仪方隶简, SimHei, sans-serif" font-size="14" fill="white" font-weight="bold">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+      咸阳一院
+    </textPath>
+  </text>
+  
+  <!-- 下方弧形文字 -->
+  <text font-family="汉仪方隶简, SimHei, sans-serif" font-size="12" fill="#C8E6C9" font-weight="bold">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+      呼吸科专业
+    </textPath>
+  </text>
+  
+  <!-- 装饰性呼吸元素 -->
+  <circle cx="55" cy="75" r="2" fill="#E3F2FD" opacity="0.8">
+    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="145" cy="75" r="2" fill="#E3F2FD" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="55" cy="125" r="2" fill="#E3F2FD" opacity="0.8">
+    <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="145" cy="125" r="2" fill="#E3F2FD" opacity="0.8">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>

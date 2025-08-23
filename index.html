@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=yes">
+    <title>咳咳咳，是小感冒，还是肺出了问题？ - 咸阳市第一人民医院呼吸科</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: '汉仪方隶简';
+            src: url('./fonts/汉仪方隶简.OTF') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+4E00-9FFF, U+3400-4DBF, U+20000-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo">
+            <img src="hospital-logo.svg" alt="咸阳市第一人民医院" class="logo-img" id="hospital-logo" ondblclick="uploadImage('hospital-logo')">
+        </div>
+        <h1 class="main-title">🏥 咳咳咳，是小感冒，还是肺出了问题？</h1>
+        <p class="subtitle">——呼吸病院医生带您认识呼吸道那些事</p>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 真实故事开场 -->
+        <section class="story-section">
+            <h2 class="section-title">👵 真实故事开场</h2>
+            <div class="story-content">
+                <p>张阿姨最近睡觉总被咳醒，白天也喘不过气，还以为是"秋燥上火"。</p>
+                <p>谁知去医院一查，竟是慢性支气管炎发作了！</p>
+            </div>
+        </section>
+
+        <!-- 常见误区 -->
+        <section class="misconception-section">
+            <h2 class="section-title">❗ 常见误区，你也踩过吗？</h2>
+            <div class="misconception-list">
+                <div class="misconception-item">
+                    <h3>🌀 "咳嗽=感冒"？</h3>
+                    <p class="wrong-mark">❌ 错！</p>
+                    <p>感冒后如果持续咳嗽超过2周，可能是支气管炎、哮喘、甚至慢阻肺！</p>
+                </div>
+                <div class="misconception-item">
+                    <h3>🍬 "止咳糖浆喝了就行"？</h3>
+                    <p class="wrong-mark">❌ 不一定！</p>
+                    <p>不同的咳嗽原因用药大不同，用错药，越咳越严重！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 疾病科普 -->
+        <section class="disease-section">
+            <h2 class="section-title">🔍 常见的呼吸科疾病小科普</h2>
+            <div class="disease-list">
+                <div class="disease-item">
+                    <h3>📌 慢性支气管炎</h3>
+                    <p>每年秋冬反复咳嗽咳痰，早上最明显？小心是它！</p>
+                </div>
+                <div class="disease-item">
+                    <h3>📌 支气管哮喘</h3>
+                    <p>一遇冷空气就"呼哧呼哧"？胸闷气紧也可能是哮喘！</p>
+                </div>
+                <div class="disease-item">
+                    <h3>📌 慢阻肺（COPD）</h3>
+                    <p>抽烟几十年，爬楼就喘不上来，别拖了，可能是慢阻肺！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 居家小贴士 -->
+        <section class="tips-section">
+            <h2 class="section-title">🧸 居家小贴士</h2>
+            <div class="tips-list">
+                <div class="tip-item">
+                    <span class="tip-icon">🧼</span>
+                    <p><strong>保持室内清洁：</strong>避免灰尘、花粉等过敏源</p>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🌬️</span>
+                    <p><strong>保持空气湿润：</strong>干燥天气咳得更厉害，可使用加湿器</p>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🚫</span>
+                    <p><strong>远离烟酒刺激：</strong>二手烟比你想象中更可怕</p>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">📅</span>
+                    <p><strong>定期复诊：</strong>慢性病要"养"，更要"管"！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 医生温馨提醒 -->
+        <section class="doctor-reminder">
+            <h2 class="section-title">🩺 医生温馨提醒</h2>
+            <div class="reminder-content">
+                <h3>🔔 网络虽大，但不是万能！</h3>
+                <ul class="reminder-list">
+                    <li>📱 网上看病信息多，真假难辨；</li>
+                    <li>✅ 每个人病情不同，别"对号入座"自我用药！</li>
+                    <li>🏥 请务必前往正规医院呼吸科就诊，听专业医生的建议。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 医患沟通画面 -->
+        <section class="communication-section">
+            <div class="communication-content">
+                <img id="doctor-patient-img" src="doctor-patient-communication.jpg" alt="医患沟通画面" class="communication-image" ondblclick="uploadImage('doctor-patient-img')">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="hospital-info">
+            <h3>🏥 咸阳市第一人民医院 · 呼吸与危重症病院</h3>
+            <div class="department-info">
+            <p>🌐 官网：<a href="https://www.xyyy999.com/html/ksdh/lcks_hxwz/" target="_blank">https://www.xyyy999.com/html/ksdh/lcks_hxwz/</a></p>
+
+            <div class="contact-item">
+                <strong>电话：</strong><span id="phone">029-33248083</span> / <span>029-33281175</span>
+            </div>
+            <div class="contact-item">
+                <strong>地址：</strong><span id="address">咸阳市秦都区毕塬西路10号</span>
+            </div>
+            <div class="contact-item">
+                <strong>官网：</strong><a id="website" href="#" target="_blank">呼吸与危重症病院</a>
+            </div>
+        </div>
+        </div>
+        
+        <!-- 科普编辑与医生个人号合并区域 -->
+        <section class="doctor-editor-section">
+            <h2 class="section-title">👨‍⚕️ 科普编辑 & 医生个人号</h2>
+            <div class="doctor-editor-content">
+                <div class="editor-info-card">
+                    <div class="editor-details">
+                        <h3>✍️ 科普编辑信息</h3>
+                        <div class="editor-info">
+                            <p><strong>编辑：</strong><span id="editor-name">亢锴医生</span></p>
+                            <p><strong>科室：</strong><span id="editor-department">呼吸与危重症病院</span></p>
+                            <p><strong>📱 门诊预约：</strong><a href="#小程序://咸阳市第一人民医院/3qvFwHHh6svxp5e" class="miniprogram-btn">点击进入小程序</a></p>
+                        </div>
+                    </div>
+                    <div class="doctor-qr-card">
+                        <h3>📱 扫码关注</h3>
+                        <div class="qr-container">
+                            <img id="doctor-qr" src="doctor-qr.svg" alt="医生二维码" class="qr-code" ondblclick="uploadImage('doctor-qr')">
+                            <p class="qr-label">医生个人号</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="contact-info">
+            <h4>📞 咨询电话</h4>
+            <div class="phone-numbers">
+                <p><a href="tel:029-33248083" id="main-phone">📱 029-33248083</a> | <a href="tel:029-33281175" id="dept-phone">📱 029-33281175</a></p>
+            </div>
+        </div>
+        
+        <div class="address-info">
+            <h4>📍 医院地址</h4>
+            <p>咸阳市秦都区毕塬西路10号</p>
+        </div>
+        
+        <div class="department-details">
+            <h4>🏥 科室介绍</h4>
+            <p>呼吸与危重症病院系咸阳市第一人民医院重点专科病院，设有两个普通病及1个RICU病区。配备先进医疗设备，专业医护人员58名，床位100张，集医疗、教学、科研、康复与职业病防治为一体。系国家PCCM规范化建设达标单位。咸阳市肺结节一体化诊疗中心，全国慢性气道疾病规范化管理建设项目单位，咸阳市职业病健康管理中心，省呼吸重点专科联盟单位。</p>
+        </div>
+        
+        <div class="slogan">
+            <p class="care-text">💚 关爱呼吸健康，我们在您身边！</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="config-loader.js"></script>
+</body>
+</html>

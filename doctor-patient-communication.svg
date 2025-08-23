@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8F5E8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F1F8E9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E3F2FD;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="doctorCoat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="lungGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#BBDEFB;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#E3F2FD;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- 医院环境背景 -->
+  <rect x="50" y="450" width="700" height="150" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2" rx="10"/>
+  
+  <!-- 医生形象 -->
+  <g id="doctor">
+    <!-- 医生身体 -->
+    <ellipse cx="250" cy="480" rx="60" ry="80" fill="url(#doctorCoat)"/>
+    
+    <!-- 医生头部 -->
+    <circle cx="250" cy="380" r="40" fill="#fdbcb4"/>
+    
+    <!-- 医生头发 -->
+    <path d="M210 360 Q250 340 290 360 Q285 350 250 345 Q215 350 210 360" fill="#4a4a4a"/>
+    
+    <!-- 医生眼睛 -->
+    <circle cx="240" cy="375" r="3" fill="#333"/>
+    <circle cx="260" cy="375" r="3" fill="#333"/>
+    
+    <!-- 医生嘴巴 -->
+    <path d="M240 390 Q250 395 260 390" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+    
+    <!-- 听诊器 -->
+    <circle cx="250" cy="420" r="15" fill="#2E7D32" stroke="#1B5E20" stroke-width="3"/>
+    <path d="M250 405 Q230 400 220 420" stroke="#333" stroke-width="3" fill="none"/>
+    <path d="M250 405 Q270 400 280 420" stroke="#333" stroke-width="3" fill="none"/>
+    
+    <!-- 医生手臂和手 -->
+    <ellipse cx="200" cy="450" rx="15" ry="30" fill="#fdbcb4" transform="rotate(-20 200 450)"/>
+    <circle cx="190" cy="470" r="12" fill="#fdbcb4"/>
+    
+    <!-- 医生右手指向肺部图像 -->
+    <ellipse cx="300" cy="430" rx="15" ry="25" fill="#fdbcb4" transform="rotate(30 300 430)"/>
+    <circle cx="315" cy="445" r="12" fill="#fdbcb4"/>
+  </g>
+  
+  <!-- 患者形象 -->
+  <g id="patient">
+    <!-- 患者身体 -->
+    <ellipse cx="550" cy="480" rx="55" ry="75" fill="#e3f2fd"/>
+    
+    <!-- 患者头部 -->
+    <circle cx="550" cy="385" r="35" fill="#fdbcb4"/>
+    
+    <!-- 患者头发（年长） -->
+    <path d="M520 365 Q550 350 580 365 Q575 355 550 352 Q525 355 520 365" fill="#888"/>
+    
+    <!-- 患者眼睛 -->
+    <circle cx="542" cy="380" r="3" fill="#333"/>
+    <circle cx="558" cy="380" r="3" fill="#333"/>
+    
+    <!-- 患者嘴巴（关切表情） -->
+    <path d="M542 395 Q550 390 558 395" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+    
+    <!-- 患者手臂 -->
+    <ellipse cx="500" cy="450" rx="12" ry="25" fill="#fdbcb4" transform="rotate(-10 500 450)"/>
+    <circle cx="495" cy="470" r="10" fill="#fdbcb4"/>
+  </g>
+  
+  <!-- 肺部X光片/图像 -->
+  <g id="lungDiagram">
+    <!-- X光片背景 -->
+    <rect x="320" y="200" width="160" height="200" fill="#1a1a1a" stroke="#666" stroke-width="3" rx="5"/>
+    
+    <!-- 肺部轮廓 -->
+    <g fill="url(#lungGlow)" stroke="#90CAF9" stroke-width="2">
+      <!-- 左肺 -->
+      <path d="M350 230 Q340 240 340 270 Q340 300 350 330 Q360 340 375 340 Q385 335 385 320 L385 250 Q380 230 350 230 Z" opacity="0.8"/>
+      
+      <!-- 右肺 -->
+      <path d="M415 230 Q425 240 425 270 Q425 300 415 330 Q405 340 390 340 Q380 335 380 320 L380 250 Q385 230 415 230 Z" opacity="0.8"/>
+      
+      <!-- 气管和支气管 -->
+      <rect x="397" y="210" width="6" height="30" fill="#90CAF9" rx="3"/>
+      <path d="M400 240 L375 260" stroke="#90CAF9" stroke-width="3" stroke-linecap="round"/>
+      <path d="M400 240 L425 260" stroke="#90CAF9" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+  
+  <!-- 对话气泡 -->
+  <g id="speechBubbles">
+    <!-- 医生说话气泡 -->
+    <ellipse cx="180" cy="280" rx="80" ry="40" fill="white" stroke="#2E7D32" stroke-width="2"/>
+    <path d="M200 310 L220 330 L240 310" fill="white" stroke="#2E7D32" stroke-width="2"/>
+    <text x="180" y="275" font-family="HYFangLiJian, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#1B5E20">根据您的症状</text>
+    <text x="180" y="290" font-family="HYFangLiJian, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#1B5E20">我们来看看肺部</text>
+    
+    <!-- 患者说话气泡 -->
+    <ellipse cx="620" cy="280" rx="75" ry="35" fill="white" stroke="#1976D2" stroke-width="2"/>
+    <path d="M580 305 L560 325 L540 305" fill="white" stroke="#1976D2" stroke-width="2"/>
+    <text x="620" y="275" font-family="HYFangLiJian, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#0D47A1">医生，我最近</text>
+    <text x="620" y="290" font-family="HYFangLiJian, SimHei, sans-serif" font-size="12" text-anchor="middle" fill="#0D47A1">总是咳嗽</text>
+  </g>
+  
+  <!-- 医疗设备 -->
+  <g id="medicalEquipment">
+    <!-- 桌子 -->
+    <rect x="300" y="520" width="200" height="60" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2" rx="5"/>
+    
+    <!-- 电脑显示器 -->
+    <rect x="320" y="480" width="80" height="50" fill="#333" stroke="#666" stroke-width="2" rx="3"/>
+    <rect x="325" y="485" width="70" height="40" fill="#000"/>
+    
+    <!-- 文件夹 -->
+    <rect x="420" y="500" width="30" height="20" fill="#FFF3E0" stroke="#FF9800" stroke-width="1" rx="2"/>
+    <rect x="425" y="495" width="30" height="20" fill="#FFCC02" stroke="#FF9800" stroke-width="1" rx="2"/>
+  </g>
+  
+  <!-- 装饰性医疗图标 -->
+  <g id="medicalIcons" opacity="0.3">
+    <!-- 心电图线 -->
+    <path d="M50 100 L100 100 L120 80 L140 120 L160 60 L180 140 L200 100 L250 100" 
+          stroke="#2E7D32" stroke-width="2" fill="none"/>
+    
+    <!-- 医疗十字 -->
+    <g transform="translate(700, 80)">
+      <rect x="-10" y="-25" width="20" height="50" fill="#2E7D32" opacity="0.5" rx="2"/>
+      <rect x="-25" y="-10" width="50" height="20" fill="#2E7D32" opacity="0.5" rx="2"/>
+    </g>
+  </g>
+  
+  <!-- 标题文字 -->
+  <text x="400" y="50" font-family="HYFangLiJian, SimHei, sans-serif" font-size="24" font-weight="bold" 
+        text-anchor="middle" fill="#1B5E20">专业医患沟通 · 呼吸健康咨询</text>
+  
+  <!-- 底部说明文字 -->
+  <text x="400" y="580" font-family="HYFangLiJian, SimHei, sans-serif" font-size="14" 
+        text-anchor="middle" fill="#666" opacity="0.8">咸阳市第一人民医院呼吸科 - 用心倾听，专业诊疗</text>
+</svg>

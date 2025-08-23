@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医院H5页面管理后台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'HYFangLiJian', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2E7D32, #388E3C);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #2E7D32;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 2px solid #2E7D32;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2E7D32;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: 2px dashed #2E7D32;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .file-upload:hover {
+            background: #e8f5e8;
+            border-color: #1B5E20;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2E7D32, #388E3C);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #1B5E20, #2E7D32);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #1976D2, #2196F3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #1565C0, #1976D2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #d32f2f, #f44336);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c62828, #d32f2f);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .current-config {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .config-item {
+            margin: 8px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #2E7D32;
+        }
+
+        /* 登录界面样式 */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .login-box input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-box button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-box button[type="submit"]:hover {
+            transform: translateY(-2px);
+        }
+        
+        .forgot-password-link {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .forgot-password-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 密码重置模态框样式 */
+        .reset-step {
+            margin-bottom: 20px;
+        }
+        
+        .reset-step h4 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        
+        .verification-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .verification-input input {
+            flex: 1;
+        }
+        
+        .verification-input button {
+            white-space: nowrap;
+            min-width: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        #send-code-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #c62828;
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .close {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="login-container" class="login-container">
+        <div class="login-box">
+            <h2>管理后台登录</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="password">管理密码:</label>
+                    <input type="password" id="admin-password" placeholder="请输入管理密码" required>
+                </div>
+                <button type="submit">登录</button>
+                <div class="forgot-password-link">
+                    <a href="#" id="forgot-password-link">忘记密码？</a>
+                </div>
+                <div id="login-error" class="error-message" style="display: none;">密码错误，请重试</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 管理界面 -->
+    <div id="admin-container" class="container" style="display: none;">
+        <div class="header">
+
+            <h1>🏥 咸阳市第一人民医院呼吸与危重症病院</h1>
+            <p>H5页面管理后台</p>
+            <button id="logout-btn" class="logout-btn">退出登录</button>
+        </div>
+
+        <div class="content">
+            <!-- 图片管理区域 -->
+            <div class="section">
+                <h2>🖼️ 图片管理</h2>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>医院徽标</label>
+                        <div class="file-upload" onclick="document.getElementById('logo-upload').click()">
+                            <input type="file" id="logo-upload" accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml,image/gif">
+                            <p>📁 点击上传医院徽标</p>
+                            <p style="font-size: 12px; color: #666;">支持 JPG、JPEG、PNG、WebP、SVG、GIF 格式，建议尺寸 200x200px，最大 5MB</p>
+                        </div>
+                        <img id="logo-preview" class="preview-image" style="display: none;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>医患沟通图片</label>
+                        <div class="file-upload" onclick="document.getElementById('comm-upload').click()">
+                            <input type="file" id="comm-upload" accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml,image/gif">
+                            <p>📁 点击上传医患沟通图片</p>
+                            <p style="font-size: 12px; color: #666;">支持 JPG、JPEG、PNG、WebP、SVG、GIF 格式，建议尺寸 800x600px，最大 5MB</p>
+                        </div>
+                        <img id="comm-preview" class="preview-image" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系信息管理 -->
+            <div class="section">
+                <h2>📞 联系信息管理</h2>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>医院名称</label>
+                        <input type="text" id="hospital-name" placeholder="咸阳市第一人民医院">
+                    </div>
+                    <div class="form-group">
+                        <label>科室名称</label>
+                        <input type="text" id="department-name" placeholder="呼吸与危重症病院">
+                    </div>
+                    <div class="form-group">
+                        <label>主要电话</label>
+                        <input type="tel" id="main-phone" placeholder="029-33766120">
+                    </div>
+                    <div class="form-group">
+                        <label>科室电话</label>
+                        <input type="tel" id="dept-phone" placeholder="029-33766120">
+                    </div>
+                    <div class="form-group">
+                        <label>医院地址</label>
+                        <input type="text" id="hospital-address" placeholder="咸阳市毕塬路副2号">
+                    </div>
+                    <div class="form-group">
+                        <label>官网链接</label>
+                        <input type="url" id="website" placeholder="请输入官网链接">
+                    </div>
+                    <div class="form-group">
+                        <label>小程序链接</label>
+                        <input type="text" id="miniprogram-link" placeholder="#小程序://咸阳市第一人民医院/3qvFwHHh6svxp5e">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主题设置 -->
+            <div class="section">
+                <h2>🎨 主题设置</h2>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>主色调</label>
+                        <input type="color" id="primary-color" value="#2E7D32">
+                    </div>
+                    <div class="form-group">
+                        <label>次要颜色</label>
+                        <input type="color" id="secondary-color" value="#1B5E20">
+                    </div>
+                    <div class="form-group">
+                        <label>强调色</label>
+                        <input type="color" id="accent-color" value="#4CAF50">
+                    </div>
+                    <div class="form-group">
+                        <label>字体大小</label>
+                        <input type="range" id="font-size" min="14" max="24" value="18">
+                        <span id="font-size-value">18px</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 当前配置显示 -->
+            <div class="section">
+                <h2>⚙️ 当前配置</h2>
+                <div class="current-config">
+                    <div id="config-display">正在加载配置...</div>
+                </div>
+            </div>
+
+            <!-- 科普编辑信息管理 -->
+            <div class="section">
+                <h2>✍️ 科普编辑信息</h2>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>编辑姓名</label>
+                        <input type="text" id="editor-name" placeholder="请输入编辑姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>编辑科室</label>
+                        <input type="text" id="editor-department" placeholder="请输入编辑科室">
+                    </div>
+                    <div class="form-group">
+                        <label>编辑职位</label>
+                        <input type="text" id="editor-title" placeholder="请输入编辑职位">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 二维码管理 -->
+            <div class="section">
+                <h2>📱 二维码管理</h2>
+                <div class="grid">
+                    <!-- 医院公众号二维码已删除 -->
+
+                    <div class="form-group">
+                        <label>医生个人号二维码</label>
+                        <div class="file-upload" onclick="document.getElementById('doctor-qr-upload').click()">
+                            <input type="file" id="doctor-qr-upload" accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml,image/gif">
+                            <p>📁 点击上传医生个人号二维码</p>
+                            <p style="font-size: 12px; color: #666;">支持 JPG、JPEG、PNG、WebP、SVG、GIF 格式，建议尺寸 200x200px，最大 2MB</p>
+                        </div>
+                        <img id="doctor-qr-preview" class="preview-image" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 字体设置 -->
+            <div class="section">
+                <h2>🔤 字体设置</h2>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>字体选择</label>
+                        <select id="font-family" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                            <option value="'HYFangLiJian', sans-serif">汉仪方隶简</option>
+                            <option value="'Microsoft YaHei', sans-serif">微软雅黑</option>
+                            <option value="'SimSun', serif">宋体</option>
+                            <option value="'SimHei', sans-serif">黑体</option>
+                            <option value="'KaiTi', serif">楷体</option>
+                            <option value="'FangSong', serif">仿宋</option>
+                            <option value="'Arial', sans-serif">Arial</option>
+                            <option value="'Times New Roman', serif">Times New Roman</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>字体大小</label>
+                        <select id="font-size-select" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                            <option value="12px">12px</option>
+                            <option value="14px">14px</option>
+                            <option value="16px">16px</option>
+                            <option value="18px">18px</option>
+                            <option value="20px">20px</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>行高</label>
+                        <select id="line-height" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                            <option value="1.2">1.2</option>
+                            <option value="1.4">1.4</option>
+                            <option value="1.5">1.5</option>
+                            <option value="1.6">1.6</option>
+                            <option value="1.8">1.8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>字体预览</label>
+                        <div id="font-preview" style="padding: 15px; border: 2px solid #ddd; border-radius: 8px; background: white; font-family: 'Microsoft YaHei', sans-serif; font-size: 16px; line-height: 1.5;">
+                            字体预览：这是一段示例文字，用于预览字体效果。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="section">
+                <h2>🔧 操作</h2>
+                <button class="btn" onclick="saveConfig()">💾 保存配置</button>
+                <button class="btn btn-secondary" onclick="previewPage()">👁️ 预览页面</button>
+                <button class="btn btn-secondary" onclick="exportConfig()">📤 导出配置</button>
+                <button class="btn btn-secondary" onclick="showPasswordModal()">🔐 修改密码</button>
+                <button class="btn btn-danger" onclick="resetConfig()">🔄 重置配置</button>
+                
+                <div id="status-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 密码重置模态框 -->
+    <div id="reset-password-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔐 密码重置</h3>
+                <span class="close" onclick="hideResetPasswordModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- 步骤1: 手机号验证 -->
+                <div id="phone-verification-step" class="reset-step">
+                    <h4>步骤1: 手机号验证</h4>
+                    <form id="phone-verification-form">
+                        <div class="form-group">
+                            <label for="admin-phone">管理员手机号</label>
+                            <input type="tel" id="admin-phone" placeholder="请输入绑定的手机号" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="verification-code">验证码</label>
+                            <div class="verification-input">
+                                <input type="text" id="verification-code" placeholder="请输入验证码" required>
+                                <button type="button" id="send-code-btn" class="btn btn-secondary">发送验证码</button>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="hideResetPasswordModal()">❌ 取消</button>
+                            <button type="submit" class="btn btn-primary">✅ 验证</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 步骤2: 重置密码 -->
+                <div id="new-password-step" class="reset-step" style="display: none;">
+                    <h4>步骤2: 设置新密码</h4>
+                    <form id="new-password-form">
+                        <div class="form-group">
+                            <label for="reset-new-password">新密码</label>
+                            <input type="password" id="reset-new-password" required minlength="6" placeholder="请输入新密码（至少6位）">
+                        </div>
+                        <div class="form-group">
+                            <label for="reset-confirm-password">确认新密码</label>
+                            <input type="password" id="reset-confirm-password" required minlength="6" placeholder="请再次输入新密码">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="hideResetPasswordModal()">❌ 取消</button>
+                            <button type="submit" class="btn btn-primary">✅ 重置密码</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="reset-error" class="error-message" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码模态框 -->
+    <div id="password-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔐 修改密码</h3>
+                <span class="close" onclick="hidePasswordModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="password-change-form">
+                    <div class="form-group">
+                        <label for="current-password">当前密码</label>
+                        <input type="password" id="current-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">新密码</label>
+                        <input type="password" id="new-password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">确认新密码</label>
+                        <input type="password" id="confirm-password" required minlength="6">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">✅ 确认修改</button>
+                        <button type="button" class="btn btn-secondary" onclick="hidePasswordModal()">❌ 取消</button>
+                    </div>
+                </form>
+                <div id="password-error" class="error-message" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 管理密码和手机号（存储在localStorage中）
+        function getAdminPassword() {
+            return localStorage.getItem('admin_password') || 'admin123';
+        }
+        
+        function setAdminPassword(newPassword) {
+            localStorage.setItem('admin_password', newPassword);
+        }
+        
+        function getAdminPhone() {
+            return localStorage.getItem('admin_phone') || '13800138000';
+        }
+        
+        function setAdminPhone(phone) {
+            localStorage.setItem('admin_phone', phone);
+        }
+        
+        // 登录失败次数限制
+        function getLoginAttempts() {
+            const attempts = localStorage.getItem('login_attempts');
+            return attempts ? JSON.parse(attempts) : { count: 0, lastAttempt: 0 };
+        }
+        
+        function setLoginAttempts(count) {
+            const attempts = {
+                count: count,
+                lastAttempt: Date.now()
+            };
+            localStorage.setItem('login_attempts', JSON.stringify(attempts));
+        }
+        
+        function isAccountLocked() {
+            const attempts = getLoginAttempts();
+            const lockDuration = 15 * 60 * 1000; // 15分钟锁定
+            
+            if (attempts.count >= 5) {
+                const timeSinceLastAttempt = Date.now() - attempts.lastAttempt;
+                if (timeSinceLastAttempt < lockDuration) {
+                    return Math.ceil((lockDuration - timeSinceLastAttempt) / 60000); // 返回剩余锁定分钟数
+                } else {
+                    // 锁定时间已过，重置计数
+                    setLoginAttempts(0);
+                    return false;
+                }
+            }
+            return false;
+        }
+        
+        // 登录功能
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 检查账户是否被锁定
+            const lockMinutes = isAccountLocked();
+            if (lockMinutes) {
+                document.getElementById('login-error').textContent = `账户已被锁定，请${lockMinutes}分钟后再试`;
+                document.getElementById('login-error').style.display = 'block';
+                return;
+            }
+            
+            const password = document.getElementById('admin-password').value;
+            
+            if (password === getAdminPassword()) {
+                // 登录成功，重置失败次数
+                setLoginAttempts(0);
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('admin-container').style.display = 'block';
+                document.getElementById('login-error').style.display = 'none';
+                // 保存登录状态
+                sessionStorage.setItem('admin_logged_in', 'true');
+            } else {
+                // 登录失败，增加失败次数
+                const attempts = getLoginAttempts();
+                const newCount = attempts.count + 1;
+                setLoginAttempts(newCount);
+                
+                let errorMessage = '密码错误，请重试';
+                if (newCount >= 3) {
+                    errorMessage += ` (剩余${5 - newCount}次尝试机会)`;
+                }
+                if (newCount >= 5) {
+                    errorMessage = '登录失败次数过多，账户已被锁定15分钟';
+                }
+                
+                document.getElementById('login-error').textContent = errorMessage;
+                document.getElementById('login-error').style.display = 'block';
+                document.getElementById('admin-password').value = '';
+            }
+        });
+        
+        // 退出登录
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            sessionStorage.removeItem('admin_logged_in');
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('admin-container').style.display = 'none';
+            document.getElementById('admin-password').value = '';
+        });
+        
+        // 检查登录状态
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('admin_logged_in') === 'true') {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('admin-container').style.display = 'block';
+            }
+        });
+
+        let currentConfig = {};
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCurrentConfig();
+            setupEventListeners();
+            displayCurrentConfig();
+        });
+
+        // 加载当前配置
+        async function loadCurrentConfig() {
+            try {
+                const response = await fetch('config.json');
+                currentConfig = await response.json();
+                populateForm();
+            } catch (error) {
+                console.error('加载配置失败:', error);
+                showStatus('加载配置失败', 'error');
+            }
+        }
+
+        // 填充表单
+        function populateForm() {
+            document.getElementById('hospital-name').value = currentConfig.hospital?.name || '';
+            document.getElementById('department-name').value = currentConfig.hospital?.department || '';
+            document.getElementById('main-phone').value = currentConfig.contact?.phone || '';
+            document.getElementById('dept-phone').value = currentConfig.contact?.department_phone || '';
+            document.getElementById('hospital-address').value = currentConfig.contact?.address || '';
+            document.getElementById('website').value = currentConfig.contact?.website || '';
+            document.getElementById('miniprogram-link').value = currentConfig.hospital?.miniprogram || '';
+            document.getElementById('primary-color').value = currentConfig.theme?.primary_color || '#2E7D32';
+            document.getElementById('secondary-color').value = currentConfig.theme?.secondary_color || '#1B5E20';
+            document.getElementById('accent-color').value = currentConfig.theme?.accent_color || '#4CAF50';
+            
+            const fontSize = parseInt(currentConfig.theme?.font_size) || 18;
+            document.getElementById('font-size').value = fontSize;
+            document.getElementById('font-size-value').textContent = fontSize + 'px';
+            
+            // 填充科普编辑信息
+            document.getElementById('editor-name').value = currentConfig.editor?.name || '';
+            document.getElementById('editor-department').value = currentConfig.editor?.department || '';
+            document.getElementById('editor-title').value = currentConfig.editor?.title || '';
+            
+            // 填充字体设置
+            document.getElementById('font-family').value = currentConfig.theme?.font_family || "'Microsoft YaHei', sans-serif";
+            document.getElementById('font-size-select').value = currentConfig.theme?.font_size || '16px';
+            document.getElementById('line-height').value = currentConfig.theme?.line_height || '1.5';
+            
+            // 显示现有图片预览
+            if (currentConfig.hospital?.logo) {
+                const logoPreview = document.getElementById('logo-preview');
+                if (currentConfig.hospital.logo.startsWith('data:image/')) {
+                    logoPreview.src = currentConfig.hospital.logo;
+                } else {
+                    logoPreview.src = currentConfig.hospital.logo;
+                }
+                logoPreview.style.display = 'block';
+            }
+            
+            if (currentConfig.images?.doctor_patient_communication) {
+                const commPreview = document.getElementById('comm-preview');
+                if (currentConfig.images.doctor_patient_communication.startsWith('data:image/')) {
+                    commPreview.src = currentConfig.images.doctor_patient_communication;
+                } else {
+                    commPreview.src = currentConfig.images.doctor_patient_communication + '.svg';
+                }
+                commPreview.style.display = 'block';
+            }
+            
+            if (currentConfig.qr_codes?.doctor_qr) {
+                const doctorQrPreview = document.getElementById('doctor-qr-preview');
+                if (currentConfig.qr_codes.doctor_qr.startsWith('data:image/')) {
+                    doctorQrPreview.src = currentConfig.qr_codes.doctor_qr;
+                } else {
+                    doctorQrPreview.src = currentConfig.qr_codes.doctor_qr + '.svg';
+                }
+                doctorQrPreview.style.display = 'block';
+            }
+            
+            updateFontPreview();
+        }
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 文件上传
+            document.getElementById('logo-upload').addEventListener('change', (e) => handleImageUpload(e, 'logo'));
+            document.getElementById('comm-upload').addEventListener('change', (e) => handleImageUpload(e, 'communication'));
+            // 医院二维码上传功能已删除
+            document.getElementById('doctor-qr-upload').addEventListener('change', (e) => handleImageUpload(e, 'doctor-qr'));
+            
+            // 字体大小滑块
+            document.getElementById('font-size').addEventListener('input', (e) => {
+                document.getElementById('font-size-value').textContent = e.target.value + 'px';
+            });
+            
+            // 字体预览
+            document.getElementById('font-family').addEventListener('change', updateFontPreview);
+            document.getElementById('font-size-select').addEventListener('change', updateFontPreview);
+            document.getElementById('line-height').addEventListener('change', updateFontPreview);
+        }
+
+        // 处理图片上传
+        function handleImageUpload(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showStatus('请选择图片文件', 'error');
+                return;
+            }
+
+            const maxSize = (type.includes('qr')) ? 2 * 1024 * 1024 : 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showStatus(`图片文件不能超过${maxSize / (1024 * 1024)}MB`, 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imageUrl = e.target.result;
+                
+                if (type === 'logo') {
+                    document.getElementById('logo-preview').src = imageUrl;
+                    document.getElementById('logo-preview').style.display = 'block';
+                    currentConfig.hospital = currentConfig.hospital || {};
+                    currentConfig.hospital.logo = imageUrl;
+                } else if (type === 'communication') {
+                    document.getElementById('comm-preview').src = imageUrl;
+                    document.getElementById('comm-preview').style.display = 'block';
+                    currentConfig.images = currentConfig.images || {};
+                    currentConfig.images.doctor_patient_communication = imageUrl;
+                } else if (type === 'doctor-qr') {
+                    document.getElementById('doctor-qr-preview').src = imageUrl;
+                    document.getElementById('doctor-qr-preview').style.display = 'block';
+                    currentConfig.qr_codes = currentConfig.qr_codes || {};
+                    currentConfig.qr_codes.doctor = imageUrl;
+                }
+                
+                const typeNames = {
+                    'logo': '医院徽标',
+                    'communication': '医患沟通图片',
+                    'doctor-qr': '医生个人号二维码'
+                };
+                
+                showStatus(`${typeNames[type]}上传成功`, 'success');
+                displayCurrentConfig();
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // 保存配置
+        function saveConfig() {
+            // 更新配置对象
+            currentConfig.hospital = currentConfig.hospital || {};
+            currentConfig.contact = currentConfig.contact || {};
+            currentConfig.theme = currentConfig.theme || {};
+            currentConfig.editor = currentConfig.editor || {};
+            
+            currentConfig.hospital.name = document.getElementById('hospital-name').value;
+            currentConfig.hospital.department = document.getElementById('department-name').value;
+            currentConfig.hospital.miniprogram = document.getElementById('miniprogram-link').value;
+            currentConfig.contact.phone = document.getElementById('main-phone').value;
+            currentConfig.contact.department_phone = document.getElementById('dept-phone').value;
+            currentConfig.contact.address = document.getElementById('hospital-address').value;
+            currentConfig.contact.website = document.getElementById('website').value;
+            currentConfig.theme.primary_color = document.getElementById('primary-color').value;
+            currentConfig.theme.secondary_color = document.getElementById('secondary-color').value;
+            currentConfig.theme.accent_color = document.getElementById('accent-color').value;
+            currentConfig.theme.font_size = document.getElementById('font-size').value + 'px';
+            
+            // 保存科普编辑信息
+            currentConfig.editor.name = document.getElementById('editor-name').value;
+            currentConfig.editor.department = document.getElementById('editor-department').value;
+            currentConfig.editor.title = document.getElementById('editor-title').value;
+            
+            // 保存字体设置
+            currentConfig.theme.font_family = document.getElementById('font-family').value;
+            currentConfig.theme.font_size_select = document.getElementById('font-size-select').value;
+            currentConfig.theme.line_height = document.getElementById('line-height').value;
+            
+            currentConfig.last_updated = new Date().toISOString().split('T')[0];
+            
+            // 保存到本地存储
+            localStorage.setItem('hospital_config', JSON.stringify(currentConfig));
+            
+            // 显示成功消息
+            showStatus('配置保存成功！', 'success');
+            displayCurrentConfig();
+        }
+
+        // 预览页面
+        function previewPage() {
+            window.open('index.html', '_blank');
+        }
+
+        // 导出配置
+        function exportConfig() {
+            const dataStr = JSON.stringify(currentConfig, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'hospital_config.json';
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            showStatus('配置文件已导出', 'success');
+        }
+
+        // 重置配置
+        function resetConfig() {
+            if (confirm('确定要重置所有配置吗？此操作不可撤销。')) {
+                localStorage.removeItem('hospital_config');
+                location.reload();
+            }
+        }
+
+        // 显示状态消息
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 3000);
+        }
+
+        // 显示当前配置
+        function displayCurrentConfig() {
+            const configDisplay = document.getElementById('config-display');
+            let html = '';
+            
+            if (currentConfig.hospital) {
+                html += `<div class="config-item"><strong>医院:</strong> ${currentConfig.hospital.name || '未设置'}</div>`;
+                html += `<div class="config-item"><strong>科室:</strong> ${currentConfig.hospital.department || '未设置'}</div>`;
+            }
+            
+            if (currentConfig.contact) {
+                html += `<div class="config-item"><strong>电话:</strong> ${currentConfig.contact.phone || '未设置'}</div>`;
+                html += `<div class="config-item"><strong>地址:</strong> ${currentConfig.contact.address || '未设置'}</div>`;
+            }
+            
+            if (currentConfig.theme) {
+                html += `<div class="config-item"><strong>主色调:</strong> <span style="background: ${currentConfig.theme.primary_color}; padding: 2px 8px; border-radius: 3px; color: white;">${currentConfig.theme.primary_color}</span></div>`;
+            }
+            
+            html += `<div class="config-item"><strong>最后更新:</strong> ${currentConfig.last_updated || '未知'}</div>`;
+            
+            configDisplay.innerHTML = html || '<p>暂无配置信息</p>';
+        }
+        
+        // 更新字体预览
+        function updateFontPreview() {
+            const fontFamily = document.getElementById('font-family').value;
+            const fontSize = document.getElementById('font-size-select').value;
+            const lineHeight = document.getElementById('line-height').value;
+            
+            const preview = document.getElementById('font-preview');
+            preview.style.fontFamily = fontFamily;
+            preview.style.fontSize = fontSize;
+            preview.style.lineHeight = lineHeight;
+        }
+        
+        // 密码管理功能
+        function showPasswordModal() {
+            document.getElementById('password-modal').style.display = 'block';
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            document.getElementById('password-error').style.display = 'none';
+        }
+        
+        function hidePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
+        }
+        
+        // 密码修改表单提交
+        document.getElementById('password-change-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorDiv = document.getElementById('password-error');
+            
+            // 验证当前密码
+            if (currentPassword !== getAdminPassword()) {
+                errorDiv.textContent = '当前密码不正确';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // 验证新密码
+            if (newPassword.length < 6) {
+                errorDiv.textContent = '新密码长度至少6位';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // 验证密码确认
+            if (newPassword !== confirmPassword) {
+                errorDiv.textContent = '两次输入的新密码不一致';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // 更新密码
+            setAdminPassword(newPassword);
+            hidePasswordModal();
+            showStatus('密码修改成功！', 'success');
+        });
+        
+        // 密码重置功能
+        let verificationCodeSent = false;
+        let verificationCodeValue = '';
+        let codeTimer = null;
+        
+        function showResetPasswordModal() {
+            document.getElementById('reset-password-modal').style.display = 'block';
+            document.getElementById('phone-verification-step').style.display = 'block';
+            document.getElementById('new-password-step').style.display = 'none';
+            document.getElementById('reset-error').style.display = 'none';
+            resetForm();
+        }
+        
+        function hideResetPasswordModal() {
+            document.getElementById('reset-password-modal').style.display = 'none';
+            resetForm();
+            if (codeTimer) {
+                clearInterval(codeTimer);
+                codeTimer = null;
+            }
+        }
+        
+        function resetForm() {
+            document.getElementById('admin-phone').value = '';
+            document.getElementById('verification-code').value = '';
+            document.getElementById('reset-new-password').value = '';
+            document.getElementById('reset-confirm-password').value = '';
+            verificationCodeSent = false;
+            verificationCodeValue = '';
+            const sendBtn = document.getElementById('send-code-btn');
+            sendBtn.disabled = false;
+            sendBtn.textContent = '发送验证码';
+        }
+        
+        // 发送验证码
+        document.getElementById('send-code-btn').addEventListener('click', function() {
+            const phone = document.getElementById('admin-phone').value;
+            const adminPhone = getAdminPhone();
+            
+            if (!phone) {
+                showResetError('请输入手机号');
+                return;
+            }
+            
+            if (phone !== adminPhone) {
+                showResetError('手机号不正确，请输入绑定的管理员手机号');
+                return;
+            }
+            
+            // 模拟发送验证码（实际项目中需要调用短信API）
+            verificationCodeValue = Math.floor(100000 + Math.random() * 900000).toString();
+            console.log('验证码（仅用于测试）:', verificationCodeValue);
+            alert(`验证码已发送到 ${phone}\n测试验证码: ${verificationCodeValue}`);
+            
+            verificationCodeSent = true;
+            startCodeTimer();
+        });
+        
+        function startCodeTimer() {
+            let countdown = 60;
+            const sendBtn = document.getElementById('send-code-btn');
+            sendBtn.disabled = true;
+            
+            codeTimer = setInterval(() => {
+                sendBtn.textContent = `重新发送(${countdown}s)`;
+                countdown--;
+                
+                if (countdown < 0) {
+                    clearInterval(codeTimer);
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = '发送验证码';
+                    codeTimer = null;
+                }
+            }, 1000);
+        }
+        
+        // 手机号验证表单提交
+        document.getElementById('phone-verification-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('admin-phone').value;
+            const code = document.getElementById('verification-code').value;
+            
+            if (!verificationCodeSent) {
+                showResetError('请先发送验证码');
+                return;
+            }
+            
+            if (code !== verificationCodeValue) {
+                showResetError('验证码不正确');
+                return;
+            }
+            
+            // 验证成功，进入下一步
+            document.getElementById('phone-verification-step').style.display = 'none';
+            document.getElementById('new-password-step').style.display = 'block';
+            document.getElementById('reset-error').style.display = 'none';
+        });
+        
+        // 新密码设置表单提交
+        document.getElementById('new-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('reset-new-password').value;
+            const confirmPassword = document.getElementById('reset-confirm-password').value;
+            
+            if (newPassword.length < 6) {
+                showResetError('新密码长度至少6位');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showResetError('两次输入的新密码不一致');
+                return;
+            }
+            
+            // 重置密码
+            setAdminPassword(newPassword);
+            hideResetPasswordModal();
+            alert('密码重置成功！请使用新密码登录。');
+        });
+        
+        function showResetError(message) {
+            document.getElementById('reset-error').textContent = message;
+            document.getElementById('reset-error').style.display = 'block';
+        }
+        
+        // 忘记密码链接点击事件
+        document.getElementById('forgot-password-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showResetPasswordModal();
+        });
+        
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            const passwordModal = document.getElementById('password-modal');
+            const resetModal = document.getElementById('reset-password-modal');
+            
+            if (event.target === passwordModal) {
+                hidePasswordModal();
+            }
+            if (event.target === resetModal) {
+                hideResetPasswordModal();
+            }
+        });
+        
+        // 字体切换功能
+        function applyFontSettings() {
+            const fontFamily = document.getElementById('font-family').value;
+            const fontSize = document.getElementById('font-size-select').value;
+            const lineHeight = document.getElementById('line-height').value;
+            
+            // 应用到当前页面
+            document.body.style.fontFamily = fontFamily;
+            document.body.style.fontSize = fontSize;
+            document.body.style.lineHeight = lineHeight;
+            
+            // 保存到本地存储
+            localStorage.setItem('adminFontFamily', fontFamily);
+            localStorage.setItem('adminFontSize', fontSize);
+            localStorage.setItem('adminLineHeight', lineHeight);
+        }
+        
+        // 加载保存的字体设置
+        function loadFontSettings() {
+            const savedFontFamily = localStorage.getItem('adminFontFamily');
+            const savedFontSize = localStorage.getItem('adminFontSize');
+            const savedLineHeight = localStorage.getItem('adminLineHeight');
+            
+            if (savedFontFamily) {
+                document.getElementById('font-family').value = savedFontFamily;
+                document.body.style.fontFamily = savedFontFamily;
+            }
+            if (savedFontSize) {
+                document.getElementById('font-size-select').value = savedFontSize;
+                document.body.style.fontSize = savedFontSize;
+            }
+            if (savedLineHeight) {
+                document.getElementById('line-height').value = savedLineHeight;
+                document.body.style.lineHeight = savedLineHeight;
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFontSettings();
+            
+            // 绑定字体设置变化事件
+            document.getElementById('font-family').addEventListener('change', applyFontSettings);
+            document.getElementById('font-size-select').addEventListener('change', applyFontSettings);
+            document.getElementById('line-height').addEventListener('change', applyFontSettings);
+        });
+    </script>
+</body>
+</html>
